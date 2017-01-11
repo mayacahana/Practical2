@@ -19,7 +19,7 @@ public class FibonacciHeap
 		this.size = 0;
 		totalLinks = 0;
 		totalCuts = 0;
-
+		nodesMarked = 0;
 }
 	//Getters & Setters for the elements of the heap
    public HeapNode getMin() {
@@ -76,12 +76,12 @@ public class FibonacciHeap
     public HeapNode insert(int key)
     {    
     	
-    	HeapNode insertNode = new HeapNode(key,null,null,getMin(),getMin().getRight());
+    	HeapNode insertNode = new HeapNode(key,null,null,null,getMin(),getMin().getRight());
     	getMin().right.left = insertNode;
     	getMin().right = insertNode;
-    	    	
-    	if (key<getMin().key){
-    		setMin(min);
+    	    	    	
+    	if (getMin()==null || key<getMin().key){
+    		setMin(insertNode);
     	}
     	
     	size++;
@@ -95,8 +95,8 @@ public class FibonacciHeap
     	getMin().right.left = node;
     	getMin().right = node;
     	    	
-    	if (node.getKey()<getMin().key){
-    		setMin(min);
+    	if (getMin()==null || node.getKey()<getMin().key){
+    		setMin(node);
     	}
     	
     	size++;
@@ -222,13 +222,18 @@ public class FibonacciHeap
     */
     public void delete(HeapNode x) 
     {    
-    	if(getMin() == x){
-    		deleteMin();
-    	}
-    	else{
-    		cut(x);
-    		
-    	}
+    	
+    	decreaseKey(x, Integer.MIN_VALUE);
+    	deleteMin();
+    	
+//    	if(getMin() == x){
+//    		deleteMin();
+//    	}
+//    	else{
+//    		cut(x);
+//    		
+//    	}
+    	
     	return; // should be replaced by student code
     }
 
@@ -246,13 +251,12 @@ public class FibonacciHeap
     	
     	int newKey = x.getKey()-delta;
     	x.setKey(x.getKey()-delta);
+    	HeapNode xParent = x.getParent();
     	if (x.isRoot() && newKey<getMin().key){
     		setMin(x);
+    		return;
     	}
-    	else if(!x.isRoot() & newKey >= x.getParent().getKey()){
-    		
-    	}
-    	else{
+    	else if(!x.isRoot() & xParent!=null && newKey < xParent.getKey()){
     		cascadingCut(x);
     	}
     	return;
@@ -338,6 +342,7 @@ public class FibonacciHeap
     		cutNode.right.left = cutNode.left;
     	}
     	
+    	cutNode.setParent(null);
     	insertHeapNode(cutNode);
     	
     	return;
@@ -406,10 +411,11 @@ public class FibonacciHeap
 		private int rank; // The rank of the node
 		
 		//HeapNode Constructor
-		public HeapNode(int key,String info, HeapNode parent, HeapNode left, HeapNode right) {
+		public HeapNode(int key,String info, HeapNode parent, HeapNode left, HeapNode child, HeapNode right) {
 			this.parent = parent;
 			this.left = left;
 			this.right = right;
+			this.child = child;
 			this.key = key;
 			this.info = info;
 			this.rank=0;
