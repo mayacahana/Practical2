@@ -50,6 +50,12 @@ public class FibonacciHeap
 		return totalCuts;
 	}
 
+	public int getNodesMarked() {
+		return nodesMarked;
+	}
+	public void setNodesMarked(int nodesMarked) {
+		this.nodesMarked = nodesMarked;
+	}
 	public void setTotalCuts(int totalCuts) {
 		FibonacciHeap.totalCuts = totalCuts;
 	}
@@ -76,32 +82,53 @@ public class FibonacciHeap
     public HeapNode insert(int key)
     {    
     	
-    	HeapNode insertNode = new HeapNode(key,null,null,null,getMin(),getMin().getRight());
-    	getMin().right.left = insertNode;
-    	getMin().right = insertNode;
-    	    	    	
-    	if (getMin()==null || key<getMin().key){
+    	HeapNode insertNode = new HeapNode(key,null,null,null,null,null);
+    	
+    	if(getMin()==null){
     		setMin(insertNode);
+    		insertNode.setRight(insertNode);
+    		insertNode.setLeft(insertNode);
     	}
     	
+    	else{
+    		insertNode.setRight(getMin().right);
+    		insertNode.setLeft(getMin().left);
+        	getMin().right.left = insertNode;
+        	getMin().right = insertNode;
+        	    	    	
+        	if (key<getMin().key){
+        		setMin(insertNode);
+        	}
+    	}
+
     	size++;
-    	
-    	return insertNode; // should be replaced by student code
+		return insertNode;
+		
     }
     
-    public void insertHeapNode(HeapNode node)
+    public void insertHeapNode(HeapNode insertNode)
     {    
     	
-    	getMin().right.left = node;
-    	getMin().right = node;
-    	    	
-    	if (getMin()==null || node.getKey()<getMin().key){
-    		setMin(node);
+    	if(getMin()==null){
+    		setMin(insertNode);
+    		insertNode.setRight(insertNode);
+    		insertNode.setLeft(insertNode);
     	}
     	
+    	else{
+    		insertNode.setRight(getMin().right);
+    		insertNode.setLeft(getMin().left);
+        	getMin().right.left = insertNode;
+        	getMin().right = insertNode;
+        	    	    	
+        	if (insertNode.getKey()<getMin().key){
+        		setMin(insertNode);
+        	}
+    	}
+
     	size++;
-    	
-    	return; // should be replaced by student code
+		return;
+		
     }
 
    /**
