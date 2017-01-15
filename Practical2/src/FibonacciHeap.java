@@ -391,7 +391,7 @@ public class FibonacciHeap
     
     public void successiveLinking() {
     	
-    	HeapNode[] arr = new HeapNode[42];
+    	HeapNode[] arr = new HeapNode[42]; //change to log
     	for (int i=0; i<arr.length;i++){
     		arr[i] = null;
     	}
@@ -404,11 +404,24 @@ public class FibonacciHeap
     		current = current.getRight();
     		while (arr[temp.getRank()] != null){
     			temp = Link(temp,arr[temp.getRank()]);
+    			arr[temp.getRank()-1] = null;
     		}
     		arr[temp.getRank()] = temp;
     	}
     	//from buckets
-    	
+    	current = null;
+    	for (int i=0; i< arr.length; i++){
+    		if (arr[i] != null){
+    			if (current == null){
+    				current = arr[i];
+    				this.setMin(current);
+    				this.getMin().setRight(current);
+    				this.getMin().setLeft(current);
+    			} else {
+    				this.insertHeapNode(arr[i]);
+    			}
+    		}
+    	}
     }
     
     public void cut(HeapNode cutNode) 
