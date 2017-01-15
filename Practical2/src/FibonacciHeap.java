@@ -140,9 +140,8 @@ public class FibonacciHeap
     */
     public void deleteMin()
     {
-    	
     	HeapNode minNode = getMin();
-    	if (minNode == null) {
+    	if (minNode != null) {
     		return;
     	}
     	
@@ -245,7 +244,7 @@ public class FibonacciHeap
     */
     public void arrayToHeap(int[] array)
     {
-    	//Delteing previous elements
+    	//Deleting previous elements
     	this.setMin(null);
     	this.setSize(0);
     	this.setTotalCuts(0);
@@ -327,6 +326,7 @@ public class FibonacciHeap
     }
     
     public void Link(HeapNode firstNode,HeapNode secondNode) {
+    	//checking if the nodes have the same rank
     	if(firstNode.getRank()!=secondNode.getRank()){
     		return;
     	}
@@ -341,7 +341,7 @@ public class FibonacciHeap
     		secondNode.setRight(secondNode);
     	}
     	
-    	else{
+    	else {
     		secondNode.setRight(firstNode.getChild().getRight());
     		firstNode.getChild().setRight(secondNode);
     	}
@@ -394,7 +394,6 @@ public class FibonacciHeap
     {    
     	HeapNode cutNodeParent = cutNode.getParent();
     	cut(cutNode);
-    	
     	if (cutNodeParent != null){ //check if we got to the first level
     		if(!cutNodeParent.isMark()){
     			cutNodeParent.setMark(true);
