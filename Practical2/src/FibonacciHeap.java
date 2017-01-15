@@ -151,7 +151,7 @@ public class FibonacciHeap
     	minNodeChild = minNode.getChild();
     	
     	if (minNode.getRight()==minNode){
-    		if (minNode.getChild()==null){
+    		if (minNodeChild==null){
     			this.setMin(null);
     			this.setSize(0);
     			return;
@@ -163,12 +163,30 @@ public class FibonacciHeap
     		}
     	}
     	else{
-        	minNode.getLeft().setRight(minNodeChild);
-        	minNode.getRight().setLeft(minNodeChild.getLeft());
-        	minNodeChild.setLeft(minNode.getLeft());
-        	minNodeChild.getLeft().setRight(minNode.getRight());   
+    		if (minNodeChild==null){
+    			minNode.getLeft().setRight(minNode.getRight());
+    			minNode.getRight().setLeft(minNode.getLeft());
+    		}
+    		
+    		else{
+            	minNode.getLeft().setRight(minNodeChild);
+            	minNode.getRight().setLeft(minNodeChild.getLeft());
+            	minNodeChild.setLeft(minNode.getLeft());
+            	minNodeChild.getLeft().setRight(minNode.getRight());
+            	        	
+    		}
+
 			this.setMin(minNode.getRight());
+			
+			HeapNode currNode = getMin().getRight();
+            System.out.println("Start: " + getMin().getKey());
+
+        	while(getMin() != currNode){
+                System.out.println(currNode.getKey());
+        		currNode = currNode.getRight();
     	}
+            System.out.println("End");
+
     	
     	HeapNode current = minNodeChild;
 
@@ -182,7 +200,7 @@ public class FibonacciHeap
     	
     	
      	return;
-     	
+    	}
     }
 
    /**
@@ -369,19 +387,22 @@ public class FibonacciHeap
     		secondNode = firstNode;
     		firstNode = tempNode;
     	}
-    	
+    	//rank 0
     	if(firstNode.getChild() == null){
     		secondNode.setRight(secondNode);
-    	}
-    	
-    	else {
-    		secondNode.setRight(firstNode.getChild().getRight());
-    		firstNode.getChild().setRight(secondNode);
+    		secondNode.setLeft(secondNode);
+    	}else {
+    		secondNode.setRight(firstNode.getChild());
+    		secondNode.setLeft(firstNode.getChild().getLeft());
+    		firstNode.getChild().getLeft().setRight(secondNode);
+    		firstNode.getChild().setLeft(secondNode);
+
     	}
     	
     	firstNode.setChild(secondNode);
     	
     	secondNode.setMark(false);
+    	secondNode.setParent(firstNode);
     	
     	firstNode.setRank(firstNode.getRank()+1);
     	totalLinks++;
@@ -392,9 +413,6 @@ public class FibonacciHeap
     public void successiveLinking() {
     	
     	HeapNode[] arr = new HeapNode[42]; //change to log
-    	for (int i=0; i<arr.length;i++){
-    		arr[i] = null;
-    	}
     	HeapNode current = this.getMin();
     	current.getLeft().setRight(null);
     	HeapNode temp;
@@ -414,9 +432,8 @@ public class FibonacciHeap
     		if (arr[i] != null){
     			if (current == null){
     				current = arr[i];
-    				this.setMin(current);
-    				this.getMin().setRight(current);
-    				this.getMin().setLeft(current);
+    				this.setMin(null);
+    				this.insertHeapNode(arr[i]);
     			} else {
     				this.insertHeapNode(arr[i]);
     			}
