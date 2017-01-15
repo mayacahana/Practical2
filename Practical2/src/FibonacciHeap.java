@@ -117,10 +117,11 @@ public class FibonacciHeap
     	}
     	
     	else{
-    		insertNode.setRight(getMin().getRight());
-    		insertNode.setLeft(getMin().getLeft());
-        	getMin().right.left = insertNode;
-        	getMin().right = insertNode;
+    		this.getMin().getRight().setLeft(insertNode);
+    		insertNode.setRight(this.getMin().getRight());
+    		this.getMin().setRight(insertNode);
+    		insertNode.setLeft(this.getMin());
+
         	    	    	
         	if (insertNode.getKey()<getMin().key){
         		setMin(insertNode);
@@ -421,8 +422,12 @@ public class FibonacciHeap
     		temp = current;
     		current = current.getRight();
     		while (arr[temp.getRank()] != null){
+    			temp.setRight(temp);
+    			temp.setLeft(temp);
     			temp = Link(temp,arr[temp.getRank()]);
     			arr[temp.getRank()-1] = null;
+    	        System.out.println("---------"+temp.getKey()+"----------");
+
     		}
     		arr[temp.getRank()] = temp;
     	}
@@ -433,6 +438,8 @@ public class FibonacciHeap
     			if (current == null){
     				current = arr[i];
     				this.setMin(null);
+    				this.setSize(0);
+    				this.setNodesMarked(0);
     				this.insertHeapNode(arr[i]);
     			} else {
     				this.insertHeapNode(arr[i]);
