@@ -17,19 +17,11 @@ public class FibonacciHeap
 	public FibonacciHeap(){
 		this.min = null;
 		this.size = 0;
-<<<<<<< HEAD
-		this.totalLinks = 0;
-		this.totalCuts = 0;
-		this.nodesMarked = 0;
-	}
-
-=======
 		this.nodesMarked = 0;
 		totalLinks = 0;
 		totalCuts = 0;
 		
 }
->>>>>>> refs/remotes/origin/master
 	//Getters & Setters for the elements of the heap
    public HeapNode getMin() {
 		return min;
@@ -68,12 +60,6 @@ public class FibonacciHeap
 	public void setTotalCuts(int totalCuts) {
 		FibonacciHeap.totalCuts = totalCuts;
 	}
-	public int getNodesMarked(){
-		return nodesMarked;
-	}
-	public void setNodesMarked(int nodesMarked){
-		this.nodesMarked = nodesMarked;
-	}
 
 /**
     * public boolean empty()
@@ -97,21 +83,12 @@ public class FibonacciHeap
     public HeapNode insert(int key)
     {    
     	
-<<<<<<< HEAD
-    	HeapNode insertNode = new HeapNode(key,null,null,this.getMin(),this.getMin().getRight());
-    	this.getMin().getRight().setLeft(insertNode);
-    	this.getMin().setRight(insertNode);
-    	    	
-    	if (key<this.getMin().getKey()){
-    		this.setMin(min);
-=======
     	HeapNode insertNode = new HeapNode(key);
     	
     	if(getMin()==null){
     		setMin(insertNode);
     		insertNode.setRight(insertNode);
     		insertNode.setLeft(insertNode);
->>>>>>> refs/remotes/origin/master
     	}
     	
     	else{
@@ -132,26 +109,13 @@ public class FibonacciHeap
     
     public void insertHeapNode(HeapNode insertNode)
     {    
-<<<<<<< HEAD
-    	this.getMin().getRight().setLeft(node);
-    	this.getMin().setRight(node);
-    	    	
-    	if (node.getKey()<this.getMin().getKey()){
-    		this.setMin(min);
-=======
     	
     	if(getMin()==null){
     		setMin(insertNode);
     		insertNode.setRight(insertNode);
     		insertNode.setLeft(insertNode);
->>>>>>> refs/remotes/origin/master
     	}
     	
-<<<<<<< HEAD
-    	this.setSize(this.getSize()+1);
-    	
-    	return; // should be replaced by student code
-=======
     	else{
     		insertNode.setRight(getMin().right);
     		insertNode.setLeft(getMin().left);
@@ -166,7 +130,6 @@ public class FibonacciHeap
     	size++;
 		return;
 		
->>>>>>> refs/remotes/origin/master
     }
 
    /**
@@ -178,18 +141,15 @@ public class FibonacciHeap
     public void deleteMin()
     {
     	
-    	HeapNode minNode = this.getMin();
-    	if (minNode == null) { //?
+    	HeapNode minNode = getMin();
+    	if (minNode == null) {
     		return;
     	}
-<<<<<<< HEAD
-=======
     	
     	
     	
     	
     	
->>>>>>> refs/remotes/origin/master
      	return; // should be replaced by student code
      	
     }
@@ -220,14 +180,6 @@ public class FibonacciHeap
     	if(heap2 == null || heap2.getSize()==0){
     		return;
     	}
-<<<<<<< HEAD
-    	// if the current heap is empty
-    	if(this == null || this.getSize() == 0){
-    		this.setMin(heap2.getMin());
-    		this.setSize(heap2.getSize());
-    		this.setNodesMarked(heap2.getNodesMarked());
-    		return; //?
-=======
     	
     	// if the current heap is empty
     	if(this == null || this.getSize() == 0){
@@ -235,21 +187,10 @@ public class FibonacciHeap
     		this.setSize(heap2.getSize());
     		this.setNodesMarked(heap2.getNodesMarked());
     		return;
->>>>>>> refs/remotes/origin/master
     	}
     	
     	HeapNode heap2Min = heap2.getMin();
-<<<<<<< HEAD
-    	this.setSize(getSize() + heap2.getSize());
-    	this.getMin().getRight().setLeft(heap2Min.getLeft());
-    	heap2Min.getLeft().setRight(this.getMin().getRight());
-    	this.getMin().setRight(heap2Min);
-    	heap2Min.setLeft(this.getMin());
-=======
->>>>>>> refs/remotes/origin/master
 
-<<<<<<< HEAD
-=======
     	this.setSize(getSize() + heap2.getSize());
     	this.getMin().getRight().setLeft(heap2Min.getLeft());
     	heap2Min.getLeft().setRight(this.getMin().getRight());
@@ -257,7 +198,6 @@ public class FibonacciHeap
     	heap2Min.setLeft(this.getMin());
     	
 
->>>>>>> refs/remotes/origin/master
     	if (heap2Min.getKey() < getMin().getKey()){
     		this.setMin(heap2Min);	
     	}
@@ -288,11 +228,8 @@ public class FibonacciHeap
     	//no need to calculate the running time 
     	int[] arr = new int[42];
     	HeapNode current = this.getMin();
-<<<<<<< HEAD
-=======
     	arr[current.getRank()]++;
     	current = current.getRight();
->>>>>>> refs/remotes/origin/master
     	while (current.getRight() == this.getMin()){
     		arr[current.getRank()]++;
     		current = current.getRight();
@@ -313,21 +250,11 @@ public class FibonacciHeap
     	this.setSize(0);
     	this.setTotalCuts(0);
     	this.setTotalLinks(0);
-<<<<<<< HEAD
-    	this.setNodesMarked(0);
-    	// should we need to null nodesMarked, totalLinks and totalCuts to??? 
-=======
     	this.setNodesMarked(0);    	
     	
->>>>>>> refs/remotes/origin/master
     	for (int i = 0; i < array.length; i++){
-<<<<<<< HEAD
-    	    this.insert(array[i]);
-    	}
-=======
     		this.insert(array[i]);
     		}
->>>>>>> refs/remotes/origin/master
         return;
     }
 	
@@ -339,22 +266,11 @@ public class FibonacciHeap
     */
     public void delete(HeapNode x) 
     {    
-<<<<<<< HEAD
-    	if(this.getMin() == x){
-    		this.deleteMin();
-    	}
-    	else{
-    		this.cut(x);
-    		
-    	}
-    	return; // should be replaced by student code
-=======
     	
     	decreaseKey(x, Integer.MIN_VALUE);
     	deleteMin();
     	
     	return;
->>>>>>> refs/remotes/origin/master
     }
 
    /**
@@ -370,24 +286,13 @@ public class FibonacciHeap
     	}
     	
     	int newKey = x.getKey()-delta;
-<<<<<<< HEAD
-    	x.setKey(x.getKey()-delta);
-=======
     	x.setKey(newKey);
     	HeapNode xParent = x.getParent();
->>>>>>> refs/remotes/origin/master
     	if (x.isRoot() && newKey<this.getMin().getKey()){
     		setMin(x);
     		return;
     	}
-<<<<<<< HEAD
-    	else if(!x.isRoot() & newKey >= x.getParent().getKey()){ //??
-    		
-    	}
-    	else {
-=======
     	else if(!x.isRoot() & xParent!=null && newKey < xParent.getKey()){
->>>>>>> refs/remotes/origin/master
     		cascadingCut(x);
     	}
     	return;
@@ -425,47 +330,42 @@ public class FibonacciHeap
     	if(firstNode.getRank()!=secondNode.getRank()){
     		return;
     	}
+    	
     	if(firstNode.getKey() > secondNode.getKey()){
     		HeapNode tempNode = secondNode;
     		secondNode = firstNode;
     		firstNode = tempNode;
     	}
+    	
     	if(firstNode.getChild() == null){
     		secondNode.setRight(secondNode);
     	}
+    	
     	else{
     		secondNode.setRight(firstNode.getChild().getRight());
     		firstNode.getChild().setRight(secondNode);
     	}
+    	
     	firstNode.setChild(secondNode);
+    	
     	secondNode.setMark(false);
+    	
     	totalLinks++;
     }
     
     public void successiveLinking() {
     	
     	int[] arr = new int[42];
-    	arrayToHeap(arr);
     	
+    	return;
     	
     }
     
     public void cut(HeapNode cutNode) 
-<<<<<<< HEAD
-    {   
-    	//all the roots are non-marked
-    	cutNode.setMark(false);
-    	
-    	if (cutNode.getParent() == null)
-    		return;
-    	totalCuts++;
-    	HeapNode cutNodeParent = cutNode.getParent();
-=======
     {    
     	//all the roots are non-marked
     	cutNode.setMark(false);
     	totalCuts++;
->>>>>>> refs/remotes/origin/master
     	nodesMarked--;
 
 
@@ -477,19 +377,11 @@ public class FibonacciHeap
     	
     	if(cutNode.getRight() == cutNode){
     		cutNodeParent.setChild(null);
-<<<<<<< HEAD
-    	} else {
-    		cutNodeParent.setChild(cutNode.getRight());
-    		cutNode.getLeft().setRight(cutNode.getRight());
-    		cutNode.getRight().setLeft(cutNode.getLeft());
-    		
-=======
     	}
     	else {
     		cutNodeParent.setChild(cutNode.getRight());
     		cutNode.getLeft().setRight(cutNode.getRight());
     		cutNode.getRight().setLeft(cutNode.getLeft());
->>>>>>> refs/remotes/origin/master
     	}
     	
     	cutNode.setParent(null);
@@ -507,7 +399,8 @@ public class FibonacciHeap
     		if(!cutNodeParent.isMark()){
     			cutNodeParent.setMark(true);
     			nodesMarked++;
-    		} else{
+    		}
+    		else{
     			cascadingCut(cutNodeParent);
     		}
     	}
@@ -524,7 +417,7 @@ public class FibonacciHeap
     */
     public static int totalLinks()
     {    
-    	return totalLinks; 
+    	return totalLinks; // should be replaced by student code
     }
 
    /**
