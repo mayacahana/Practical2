@@ -117,8 +117,8 @@ public class FibonacciHeap
     	}
     	
     	else{
-    		insertNode.setRight(getMin().right);
-    		insertNode.setLeft(getMin().left);
+    		insertNode.setRight(getMin().getRight());
+    		insertNode.setLeft(getMin().getLeft());
         	getMin().right.left = insertNode;
         	getMin().right = insertNode;
         	    	    	
@@ -126,7 +126,7 @@ public class FibonacciHeap
         		setMin(insertNode);
         	}
     	}
-
+    	insertNode.setParent(null);
     	size++;
 		return;
 		
@@ -142,15 +142,47 @@ public class FibonacciHeap
     {
     	
     	HeapNode minNode = getMin();
+    	HeapNode minNodeChild;
+    	
     	if (minNode == null) {
     		return;
     	}
     	
+    	int minNodeRank = minNode.getRank();
+    	minNodeChild = minNode.getChild();
+    	
+    	if (minNode.getRight()==minNode){
+    		if (minNode.getChild()==null){
+    			this.setMin(null);
+    			this.setSize(0);
+    			return;
+    			//should we null totallinks and toalcuts???
+    		}
+    		else {
+    			this.setMin(minNodeChild);
+    			this.getMin().setParent(null);
+    		}
+    	}
+    	else{
+        	minNode.getLeft().setRight(minNodeChild);
+        	minNode.getRight().setLeft(minNodeChild.getLeft());
+        	minNodeChild.setLeft(minNode.getLeft());
+        	minNodeChild.getLeft().setRight(minNode.getRight());   
+			this.setMin(minNode.getRight());
+    	}
+    	
+    	HeapNode current = minNodeChild;
+
+    	for (int i = 0; i < minNodeRank ; i++){
+    		current.setParent(null);
+    		current = current.getRight();
+    		}
+    	
+    	setSize(getSize()-1);
     	
     	
     	
-    	
-     	return; // should be replaced by student code
+     	return;
      	
     }
 
@@ -350,7 +382,9 @@ public class FibonacciHeap
     	
     	secondNode.setMark(false);
     	
+    	firstNode.setRank(firstNode.getRank()+1);
     	totalLinks++;
+    	
     }
     
     public void successiveLinking() {
@@ -549,7 +583,7 @@ public class FibonacciHeap
 	    	return (getParent() == null);
 	    } 
 		
-		private void print(int level) {
+		public void print(int level) {
 			HeapNode curr = this;
 			do {
 				StringBuilder sb = new StringBuilder();
