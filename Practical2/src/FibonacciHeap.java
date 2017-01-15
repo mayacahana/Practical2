@@ -153,10 +153,11 @@ public class FibonacciHeap
     	if(heap2 == null || heap2.getSize()==0){
     		return;
     	}
-    	
+    	// if the current heap is empty
     	if(this == null || this.getSize() == 0){
     		this.setMin(heap2.getMin());
     		this.setSize(heap2.getSize());
+    		this.setNodesMarked(heap2.getNodesMarked());
     		return; //?
     	}
     	
@@ -194,6 +195,7 @@ public class FibonacciHeap
     */
     public int[] countersRep()
     {
+    	//no need to calculate the running time 
     	int[] arr = new int[42];
     	HeapNode current = this.getMin();
     	while (current.getRight() == this.getMin()){
@@ -216,7 +218,7 @@ public class FibonacciHeap
     	this.setSize(0);
     	this.setTotalCuts(0);
     	this.setTotalLinks(0);
-    	this.nodesMarked=0;
+    	this.setNodesMarked(0);
     	// should we need to null nodesMarked, totalLinks and totalCuts to??? 
     	for (int i = 0; i < array.length; i++){
     	    this.insert(array[i]);
@@ -338,10 +340,9 @@ public class FibonacciHeap
     	cutNodeParent.setRank(cutNodeParent.getRank()-1);
     	
     	if(cutNode.getRight() == cutNode){
-    		cutNodeParent.child = null;
+    		cutNodeParent.setChild(null);
     	} else {
     		cutNodeParent.setChild(cutNode.getRight());
-    		//??
     		cutNode.getLeft().setRight(cutNode.getRight());
     		cutNode.getRight().setLeft(cutNode.getLeft());
     		
