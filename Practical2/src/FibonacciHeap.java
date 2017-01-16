@@ -170,31 +170,37 @@ public class FibonacciHeap
     		}
     		
     		else{
+    			
             	minNode.getLeft().setRight(minNodeChild);
             	minNode.getRight().setLeft(minNodeChild.getLeft());
+            	HeapNode tempMinNodeChildLeft = minNodeChild.getLeft();
             	minNodeChild.setLeft(minNode.getLeft());
-            	minNodeChild.getLeft().setRight(minNode.getRight());
-            	        	
+            	tempMinNodeChildLeft.setRight(minNode.getRight());	
     		}
-
+    		
+    		
 			this.setMin(minNode.getRight());
 			
 			HeapNode currNode = getMin().getRight();
-            System.out.println("Start: " + getMin().getKey());
+            //System.out.println("Start: " + getMin().getKey());
 
         	while(getMin() != currNode){
-                System.out.println(currNode.getKey());
+                //System.out.println(currNode.getKey());
         		currNode = currNode.getRight();
     	}
-            System.out.println("End");
+            //System.out.println("End");
 
     	
     	HeapNode current = minNodeChild;
-
+    	HeapNode newMin = this.getMin();
     	for (int i = 0; i < minNodeRank ; i++){
     		current.setParent(null);
     		current = current.getRight();
+    		if (current.getKey()<newMin.getKey()){
+    			newMin = current;
     		}
+    		}
+    	this.setMin(newMin);
     	
     	setSize(getSize()-1);
     	this.successiveLinking();
@@ -426,7 +432,7 @@ public class FibonacciHeap
     			temp.setLeft(temp);
     			temp = Link(temp,arr[temp.getRank()]);
     			arr[temp.getRank()-1] = null;
-    	        System.out.println("---------"+temp.getKey()+"----------");
+    	        //System.out.println("---------"+temp.getKey()+"----------");
 
     		}
     		arr[temp.getRank()] = temp;
