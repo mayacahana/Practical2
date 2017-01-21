@@ -10,8 +10,8 @@ public class FibonacciHeap
 	private HeapNode min; //the minimum of the heap
 	private int size; 
 	private int nodesMarked; 
-	private static int totalLinks; 
-	private static int totalCuts; 
+	static int totalLinks; 
+	static int totalCuts; 
 	
 	//FibonacciHeap Constructor
 	public FibonacciHeap(){
