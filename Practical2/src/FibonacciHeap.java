@@ -471,7 +471,8 @@ public class FibonacciHeap
     	//all the roots are non-marked
     	cutNode.setMark(false);
     	totalCuts++;
-    	nodesMarked--;
+    	if (cutNode.isMark() == true)
+    		nodesMarked--;
 
 
     	if (cutNode.getParent() == null)
