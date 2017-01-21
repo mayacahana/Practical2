@@ -462,7 +462,6 @@ public class FibonacciHeap
     {    
     	//all the roots are non-marked
     	cutNode.setMark(false);
-    	totalCuts++;
     	if (cutNode.isMark() == true)
     		nodesMarked--;
 
@@ -483,6 +482,7 @@ public class FibonacciHeap
     	
     	cutNode.setParent(null);
     	insertHeapNode(cutNode);
+    	totalCuts++;
     	
     	return;
     }
