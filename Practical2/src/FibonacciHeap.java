@@ -288,7 +288,7 @@ public class FibonacciHeap
     	HeapNode current = this.getMin();
     	arr[current.getRank()]++;
     	current = current.getRight();
-    	while (current.getRight() == this.getMin()){
+    	while (current.getRight() != this.getMin()){
     		arr[current.getRank()]++;
     		current = current.getRight();
     	}
