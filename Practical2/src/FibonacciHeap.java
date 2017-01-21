@@ -72,7 +72,7 @@ public class FibonacciHeap
     */
     public boolean empty()
     {
-    	return 0==this.getSize(); // should be replaced by student code
+    	return 0==this.getSize();
     }
 		
    /**
@@ -165,10 +165,11 @@ public class FibonacciHeap
     			this.setMin(minNodeChild);
     			this.getMin().setParent(null);
     			
+    			HeapNode min = getMin();
     			HeapNode currNode = getMin().getRight();
     	    	
-    	    	while(currNode != getMin()){
-    	    		this.getMin().setParent(null);
+    	    	while(currNode != min){
+    	    		currNode.setParent(null);
     	    		if (currNode.getKey()<this.getMin().getKey()){
     	    			this.setMin(currNode);
     	    		}
@@ -193,17 +194,7 @@ public class FibonacciHeap
     		}
     		
 			this.setMin(minNode.getRight());
-			
-//			HeapNode currNode = getMin().getRight();
-//            System.out.println("Start: " + getMin().getKey());
-//
-//        	while(getMin() != currNode){
-//                System.out.println(currNode.getKey());
-//        		currNode = currNode.getRight();
-//    	}
-//            System.out.println("End");
 
-    	
     	HeapNode current = minNodeChild;
     	HeapNode newMin = this.getMin();
     	for (int i = 0; i < minNodeRank ; i++){
@@ -352,14 +343,18 @@ public class FibonacciHeap
     		return;
     	}
     	
+    	
     	int newKey = x.getKey()-delta;
     	x.setKey(newKey);
     	HeapNode xParent = x.getParent();
-    	if (x.isRoot() && newKey<this.getMin().getKey()){
+		
+
+
+    	if (x.isRoot() && (newKey<this.getMin().getKey())){
     		setMin(x);
     		return;
     	}
-    	else if(!x.isRoot() & xParent!=null && newKey < xParent.getKey()){
+    	else if(!(x.isRoot()) && newKey < xParent.getKey()){
     		cascadingCut(x);
     	}
     	return;
@@ -396,7 +391,6 @@ public class FibonacciHeap
     public HeapNode Link(HeapNode firstNode,HeapNode secondNode) {
     	//checking if the nodes have the same rank
     	if(firstNode.getRank() != secondNode.getRank()){
-    		System.out.println("linking with not the same deg");
     		return null;
     	}
     	
@@ -429,7 +423,7 @@ public class FibonacciHeap
     }
     
     public void successiveLinking() {
-    	HeapNode[] arr = new HeapNode[42]; //change to log
+    	HeapNode[] arr = new HeapNode[42];
     	HeapNode current = this.getMin();
     	current.getLeft().setRight(null);
     	HeapNode temp;
@@ -442,7 +436,6 @@ public class FibonacciHeap
     			temp.setLeft(temp);
     			temp = Link(temp,arr[temp.getRank()]);
     			arr[temp.getRank()-1] = null;
-    	        //System.out.println("---------"+temp.getKey()+"----------");
 
     		}
     		arr[temp.getRank()] = temp;
@@ -472,7 +465,6 @@ public class FibonacciHeap
     	totalCuts++;
     	if (cutNode.isMark() == true)
     		nodesMarked--;
-
 
     	if (cutNode.getParent() == null)
     		return;
@@ -521,7 +513,7 @@ public class FibonacciHeap
     */
     public static int totalLinks()
     {    
-    	return totalLinks; // should be replaced by student code
+    	return totalLinks;
     }
 
    /**
@@ -650,7 +642,7 @@ public class FibonacciHeap
 		
 		public boolean isRoot()
 	    {
-	    	return (getParent() == null);
+	    	return (this.getParent() == null);
 	    } 
 		
 		public void print(int level) {
