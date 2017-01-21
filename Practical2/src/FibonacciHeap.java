@@ -97,7 +97,6 @@ public class FibonacciHeap
     		this.getMin().getRight().setLeft(this.getMin());
     		insertNode.setRight(temp);
     		insertNode.getRight().setLeft(insertNode);
-
         	    	    	
         	if (key<getMin().key){
         		setMin(insertNode);
