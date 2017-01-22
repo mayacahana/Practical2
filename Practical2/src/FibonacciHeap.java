@@ -342,14 +342,10 @@ public class FibonacciHeap
     	if(x == null){
     		return;
     	}
-    	
-    	
     	int newKey = x.getKey()-delta;
     	x.setKey(newKey);
     	HeapNode xParent = x.getParent();
 		
-
-
     	if (x.isRoot() && (newKey<this.getMin().getKey())){
     		setMin(x);
     		return;
