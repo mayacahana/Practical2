@@ -288,7 +288,7 @@ public class FibonacciHeap
     	HeapNode current = this.getMin();
     	arr[current.getRank()]++;
     	current = current.getRight();
-    	while (current.getRight() == this.getMin()){
+    	while (current.getRight() != this.getMin()){
     		arr[current.getRank()]++;
     		current = current.getRight();
     	}
@@ -458,7 +458,6 @@ public class FibonacciHeap
     {    
     	//all the roots are non-marked
     	cutNode.setMark(false);
-    	totalCuts++;
     	if (cutNode.isMark() == true)
     		nodesMarked--;
 
@@ -479,6 +478,7 @@ public class FibonacciHeap
     	
     	cutNode.setParent(null);
     	insertHeapNode(cutNode);
+    	totalCuts++;
     	
     	return;
     }
