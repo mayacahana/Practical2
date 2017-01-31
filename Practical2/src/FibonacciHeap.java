@@ -1,6 +1,6 @@
-
-
 /**
+ * 
+ * 
  * FibonacciHeap
  *
  * An implementation of fibonacci heap over non-negative integers.
@@ -306,12 +306,14 @@ public class FibonacciHeap
     	//no need to calculate the running time 
     	int[] arr = new int[42];
     	HeapNode current = this.getMin();
-    	arr[current.getRank()]++;
-    	current = current.getRight();
-    	while (current.getRight() != this.getMin()){
-    		arr[current.getRank()]++;
-    		current = current.getRight();
-    	}
+    	if ((current!=null) && (current.getRank()<=42)){
+        	arr[current.getRank()]++;
+        	current = current.getRight();
+        	while (current.getRight() != this.getMin()){
+        		arr[current.getRank()]++;
+        		current = current.getRight();
+        	}
+    	}    	
         return arr; 
     }
 
@@ -500,6 +502,10 @@ public class FibonacciHeap
     /**
      * 
      * @param cutNode
+     * cut the node from his parent
+     * update the marked value
+     * if necessary cut the parent of the cutnode's parent
+     * in order to keep the heap valid.
      */
     public void cut(HeapNode cutNode) 
     {    
